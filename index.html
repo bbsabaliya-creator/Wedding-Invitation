@@ -16,40 +16,62 @@
   <main class="phone-frame" aria-label="Interactive Wedding Invitation">
     <div class="notch"></div>
 
-    <!-- Top Controls: Music & 3-Line Menu Toggle -->
+    <!-- Top Controls: Music & 3-Line Menu -->
     <div class="top-controls">
       <button type="button" class="icon-btn" id="musicToggle" aria-label="Toggle music" title="Play / Mute Music">
         ♪
       </button>
-      <button type="button" class="icon-btn" id="menuToggle" aria-label="Open chapters menu" title="Chapters Menu">
+      <button type="button" class="icon-btn" id="menuToggle" aria-label="3-line menu" title="Menu">
         ☰
       </button>
     </div>
 
-    <!-- Moving Heart Progress Track across all 11 pages -->
-    <div class="heart-progress-wrap" aria-hidden="true">
-      <div class="heart-track">
-        <div class="heart-fill" id="heartFill"></div>
-        <div class="moving-heart" id="movingHeart">♥</div>
-      </div>
-      <div class="page-counter" id="pageCounter">01 / 11</div>
+    <!-- Sine/Cosine Wave Track with Small Red Heart -->
+    <div class="wave-stage" id="waveStage" aria-hidden="true">
+      <svg class="wave-svg" id="waveSvg" viewBox="0 0 340 70" preserveAspectRatio="none">
+        <path
+          id="waveGuidePath"
+          d=""
+          fill="none"
+          stroke="rgba(139, 38, 53, 0.22)"
+          stroke-width="2"
+          stroke-dasharray="4 4"
+        />
+        <path
+          id="waveActivePath"
+          d=""
+          fill="none"
+          stroke="#d91e36"
+          stroke-width="2.5"
+          stroke-linecap="round"
+        />
+      </svg>
+      <div class="sine-heart" id="sineHeart">♥</div>
     </div>
 
-    <!-- Active Slide View -->
-    <section class="slide-container" id="slideContent" aria-live="polite"></section>
-
-    <!-- Chapter Drawer ("Our Journey" — Hidden until 3-line menu is clicked) -->
-    <aside class="journey-overlay" id="journeyOverlay" aria-label="Chapters Navigation">
-      <div class="journey-card">
-        <div class="journey-header">
+    <!-- All 11 Pages Always Visible + Active Page Details -->
+    <section class="content-area">
+      <!-- Persistent 11-Page Overview List (Always Visible on Every Page) -->
+      <div class="all-pages-panel">
+        <div class="panel-header">
           <span>THE INVITATION</span>
-          <h2>Our Journey</h2>
+          <h2>Our Journey (11 Pages)</h2>
         </div>
-        <ul class="chapter-list" id="chapterList"></ul>
+        <ul class="all-pages-list" id="allPagesList"></ul>
       </div>
-    </aside>
 
-    <!-- Bottom Continue Pill Button -->
+      <!-- Active Page Detail Card -->
+      <div class="active-detail-card" id="activeDetailCard" aria-live="polite"></div>
+    </section>
+
+    <!-- Optional Quick Menu Dropdown under 3 Vertical/Horizontal Lines -->
+    <div class="quick-menu" id="quickMenu">
+      <button type="button" id="jumpStartBtn">Go to Page 01 (Welcome)</button>
+      <button type="button" id="jumpRsvpBtn">Go to Page 08 (RSVP)</button>
+      <button type="button" id="jumpBlessingBtn">Go to Page 09 (Blessing)</button>
+    </div>
+
+    <!-- Bottom Continue Button -->
     <button type="button" class="continue-btn" id="continueBtn">CONTINUE →</button>
   </main>
 
