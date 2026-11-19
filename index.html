@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@400;500;600&display=swap"
     rel="stylesheet"
   />
   <link rel="stylesheet" href="styles.css" />
@@ -16,63 +16,51 @@
   <main class="phone-frame" aria-label="Interactive Wedding Invitation">
     <div class="notch"></div>
 
-    <!-- Top Controls: Music & 3-Line Menu -->
+    <!-- Top Controls: Music & 3-Line Journey Drawer -->
     <div class="top-controls">
       <button type="button" class="icon-btn" id="musicToggle" aria-label="Toggle music" title="Play / Mute Music">
         ♪
       </button>
-      <button type="button" class="icon-btn" id="menuToggle" aria-label="3-line menu" title="Menu">
+      <button type="button" class="icon-btn" id="menuToggle" aria-label="Open Our Journey menu" title="Our Journey">
         ☰
       </button>
     </div>
 
-    <!-- Sine/Cosine Wave Track with Small Red Heart -->
-    <div class="wave-stage" id="waveStage" aria-hidden="true">
-      <svg class="wave-svg" id="waveSvg" viewBox="0 0 340 70" preserveAspectRatio="none">
+    <!-- Curved Dashed Trail + Red Heart Across Scenes -->
+    <div class="trail-layer" aria-hidden="true">
+      <svg class="trail-svg" viewBox="0 0 370 740" preserveAspectRatio="none">
         <path
-          id="waveGuidePath"
-          d=""
+          id="trailPath"
+          d="M 245 125 C 310 180, 75 240, 145 320 C 230 410, 295 450, 185 535 C 95 605, 155 665, 225 700"
           fill="none"
-          stroke="rgba(139, 38, 53, 0.22)"
-          stroke-width="2"
+          stroke="#b83b4a"
+          stroke-width="1.6"
           stroke-dasharray="4 4"
         />
-        <path
-          id="waveActivePath"
-          d=""
-          fill="none"
-          stroke="#d91e36"
-          stroke-width="2.5"
-          stroke-linecap="round"
-        />
       </svg>
-      <div class="sine-heart" id="sineHeart">♥</div>
+      <div class="roaming-heart" id="roamingHeart">♥</div>
     </div>
 
-    <!-- All 11 Pages Always Visible + Active Page Details -->
-    <section class="content-area">
-      <!-- Persistent 11-Page Overview List (Always Visible on Every Page) -->
-      <div class="all-pages-panel">
-        <div class="panel-header">
+    <!-- Main Chapter Stage -->
+    <section class="stage" id="stage" aria-live="polite"></section>
+
+    <!-- "Our Journey" Drawer (Hidden by default; opens on ☰ click) -->
+    <aside class="drawer-overlay" id="drawerOverlay" aria-label="Our Journey Chapters">
+      <div class="drawer-card">
+        <button type="button" class="drawer-close" id="drawerClose" aria-label="Close menu">✕</button>
+        <div class="drawer-header">
           <span>THE INVITATION</span>
-          <h2>Our Journey (11 Pages)</h2>
+          <h2>Our Journey</h2>
         </div>
-        <ul class="all-pages-list" id="allPagesList"></ul>
+        <ul class="drawer-list" id="drawerList"></ul>
       </div>
+    </aside>
 
-      <!-- Active Page Detail Card -->
-      <div class="active-detail-card" id="activeDetailCard" aria-live="polite"></div>
-    </section>
-
-    <!-- Optional Quick Menu Dropdown under 3 Vertical/Horizontal Lines -->
-    <div class="quick-menu" id="quickMenu">
-      <button type="button" id="jumpStartBtn">Go to Page 01 (Welcome)</button>
-      <button type="button" id="jumpRsvpBtn">Go to Page 08 (RSVP)</button>
-      <button type="button" id="jumpBlessingBtn">Go to Page 09 (Blessing)</button>
-    </div>
-
-    <!-- Bottom Continue Button -->
-    <button type="button" class="continue-btn" id="continueBtn">CONTINUE →</button>
+    <!-- Bottom Navigation Bar (BACK + CONTINUE / REPLAY) -->
+    <footer class="nav-bar">
+      <button type="button" class="back-btn" id="backBtn">← BACK</button>
+      <button type="button" class="continue-btn" id="continueBtn">CONTINUE →</button>
+    </footer>
   </main>
 
   <audio id="bgMusic" src="music/theme.mp3" loop preload="metadata"></audio>
