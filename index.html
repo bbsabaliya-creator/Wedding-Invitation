@@ -1,32 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Valentine 💖</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Invitation — Our Journey</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
+  <main class="phone-frame" aria-label="Interactive Wedding Invitation Preview">
+    <div class="notch"></div>
 
-  <div class="container">
-
-    <h1 id="title"></h1>
-
-    <p id="question"></p>
-
-    <div class="buttons">
-      <button id="yesBtn">Yes 💘</button>
-      <button id="noBtn">No 😝</button>
+    <!-- Top Controls: Music Toggle & Chapter Drawer Toggle -->
+    <div class="top-controls">
+      <button type="button" class="icon-btn" id="musicToggle" aria-label="Toggle background music" title="Play / Mute Music">
+        ♪
+      </button>
+      <button type="button" class="icon-btn" id="menuToggle" aria-label="Toggle chapter list" title="Toggle Chapters">
+        ✕
+      </button>
     </div>
-<img id="finalGif" src="love.gif" alt="Love" hidden />
 
-  </div>
+    <!-- Active Chapter View -->
+    <section class="slide-container" id="slideContent" aria-live="polite"></section>
 
-  <!-- Floating Hearts -->
-  <div id="hearts"></div>
+    <!-- Chapter Drawer ("Our Journey") -->
+    <aside class="journey-overlay open" id="journeyOverlay" aria-label="Chapters Navigation">
+      <div class="journey-card">
+        <div class="journey-header">
+          <span>THE INVITATION</span>
+          <h2>Our Journey</h2>
+        </div>
+        <ul class="chapter-list" id="chapterList"></ul>
+      </div>
+    </aside>
 
-  <script src="config.js"></script>
-  <script src="script.js"></script>
+    <!-- Bottom Navigation Pill -->
+    <button type="button" class="continue-btn" id="continueBtn">CONTINUE &rarr;</button>
+  </main>
 
+  <!-- Place your audio file at music/theme.mp3 -->
+  <audio id="bgMusic" src="music/theme.mp3" loop preload="metadata"></audio>
+
+  <script src="app.js"></script>
 </body>
 </html>
