@@ -21,13 +21,13 @@ const chapters = [
     num: "04",
     title: "With Families",
     subtitle: "WITH THE BLESSINGS OF",
-    body: "Mrs. Sunita & Mr. Rajesh Sharma<br>&amp;<br>Mrs. Kavita & Mr. Vikram Mehta"
+    body: "Mrs. Sunita & Mr. Rajesh Sharma<br>&<br>Mrs. Kavita & Mr. Vikram Mehta"
   },
   {
     num: "05",
     title: "The Ceremonies",
     subtitle: "WEDDING SCHEDULE",
-    body: "<strong>Mehendi &amp; Sangeet:</strong> Dec 14, 4:00 PM<br><strong>Pheras &amp; Reception:</strong> Dec 15, 6:30 PM"
+    body: "<strong>Mehendi & Sangeet:</strong> Dec 14, 4:00 PM<br><strong>Pheras & Reception:</strong> Dec 15, 6:30 PM"
   },
   {
     num: "06",
@@ -88,6 +88,9 @@ const overlay = document.getElementById("journeyOverlay");
 const chapterList = document.getElementById("chapterList");
 const slideContent = document.getElementById("slideContent");
 const continueBtn = document.getElementById("continueBtn");
+const heartFill = document.getElementById("heartFill");
+const movingHeart = document.getElementById("movingHeart");
+const pageCounter = document.getElementById("pageCounter");
 
 function getBlessings() {
   try {
@@ -109,9 +112,7 @@ function startMusicIfNeeded() {
   bgMusic.play().then(() => {
     musicStarted = true;
     musicToggle.classList.add("playing");
-  }).catch(() => {
-    // Browser blocked autoplay or file is missing; user can click the music button
-  });
+  }).catch(() => {});
 }
 
 musicToggle.addEventListener("click", () => {
@@ -127,12 +128,23 @@ musicToggle.addEventListener("click", () => {
   }
 });
 
+function updateHeartProgress() {
+  const pct = (currentIndex / (chapters.length - 1)) * 100;
+  heartFill.style.width = `${pct}%`;
+  movingHeart.style.left = `${pct}%`;
+  pageCounter.textContent = `${chapters[currentIndex].num} / ${String(chapters.length).padStart(2, "0")}`;
+
+  movingHeart.classList.remove("pulse");
+  void movingHeart.offsetWidth; // trigger reflow for pulse animation
+  movingHeart.classList.add("pulse");
+}
+
 function renderChapterList() {
   chapterList.innerHTML = chapters.map((ch, idx) => `
     <li class="chapter-item ${idx === currentIndex ? "active" : ""}" data-index="${idx}">
       <span class="chapter-num">${ch.num}</span>
       <span class="chapter-name">${ch.title}</span>
-      <span class="chapter-heart">&#9829;</span>
+      <span class="chapter-heart">♥</span>
     </li>
   `).join("");
 
@@ -197,8 +209,8 @@ function renderSlide() {
       <div class="blessings-feed">
         ${items.map((b) => `
           <div class="blessing-item">
-            <span>&ldquo;${b.text}&rdquo;</span>
-            <span class="blessing-author">&mdash; ${b.name}</span>
+            <span>“${b.text}”</span>
+            <span class="blessing-author">— ${b.name}</span>
           </div>
         `).join("")}
       </div>
@@ -206,10 +218,14 @@ function renderSlide() {
   }
 
   slideContent.innerHTML = `
-    <div class="slide-subtitle">${ch.subtitle}</div>
-    <h1 class="slide-title">${ch.title}</h1>
-    <p class="slide-body">${ch.body}</p>
-    ${extra}
+    <article class="invite-card">
+      <div class="ornament">✦ ♥ ✦</div>
+      <div class="slide-subtitle">${ch.subtitle}</div>
+      <h1 class="slide-title">${ch.title}</h1>
+      <div class="divider-line"></div>
+      <p class="slide-body">${ch.body}</p>
+      ${extra}
+    </article>
   `;
 
   const rsvpForm = document.getElementById("rsvpForm");
@@ -237,6 +253,7 @@ function renderSlide() {
     });
   }
 
+  updateHeartProgress();
   renderChapterList();
 }
 
