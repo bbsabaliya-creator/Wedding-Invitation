@@ -1,12 +1,13 @@
 :root {
-  --bg-outer: #f5ece8;
-  --card-cream: #f8eed8;
-  --card-border: #e6d5b8;
-  --text-dark: #4a3b32;
-  --text-muted: #7a6658;
-  --accent-gold: #c59b5f;
-  --accent-maroon: #8b2635;
-  --heart-red: #d91e36;
+  --outer-bg: #f6ede9;
+  --parchment: #fbf5e8;
+  --parchment-deep: #f3e7cf;
+  --ink: #3e312b;
+  --ink-soft: #756258;
+  --rose: #b83b4a;
+  --crimson: #8f2435;
+  --gold: #c49a5c;
+  --border-soft: #e5d4b7;
 }
 
 * {
@@ -20,14 +21,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--bg-outer);
+  background-color: var(--outer-bg);
   background-image:
-    radial-gradient(#d89ca4 1.5px, transparent 1.5px),
-    radial-gradient(#e4b7bd 1.5px, var(--bg-outer) 1.5px);
-  background-size: 60px 60px;
-  background-position: 0 0, 30px 30px;
+    radial-gradient(#df9ea7 1.4px, transparent 1.4px),
+    radial-gradient(#e9bac1 1.4px, var(--outer-bg) 1.4px);
+  background-size: 56px 56px;
+  background-position: 0 0, 28px 28px;
   font-family: 'Cormorant Garamond', serif;
-  color: var(--text-dark);
+  color: var(--ink);
   padding: 16px;
 }
 
@@ -35,12 +36,10 @@ body {
   width: 100%;
   max-width: 390px;
   height: 780px;
-  background:
-    linear-gradient(180deg, rgba(248, 238, 216, 0.42) 0%, rgba(232, 223, 213, 0.62) 100%),
-    url('./photos/couple-bg.jpg') center / cover no-repeat;
-  border: 10px solid #222;
+  background: linear-gradient(180deg, var(--parchment) 0%, var(--parchment-deep) 100%);
+  border: 10px solid #1e1e1e;
   border-radius: 44px;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 24px 54px rgba(0, 0, 0, 0.24);
   position: relative;
   overflow: hidden;
   display: flex;
@@ -48,12 +47,13 @@ body {
 }
 
 .notch {
-  width: 110px;
+  width: 112px;
   height: 24px;
-  background: #111;
+  background: #121212;
   border-radius: 20px;
   margin: 12px auto 0;
-  z-index: 30;
+  z-index: 40;
+  flex-shrink: 0;
 }
 
 .top-controls {
@@ -63,324 +63,245 @@ body {
   right: 18px;
   display: flex;
   justify-content: space-between;
-  z-index: 30;
+  z-index: 40;
   pointer-events: none;
 }
 
 .icon-btn {
   pointer-events: auto;
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.94);
-  border: 1px solid var(--card-border);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border-soft);
+  color: var(--ink);
   font-size: 15px;
-  color: var(--text-dark);
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
 }
 
 .icon-btn.playing {
-  color: var(--heart-red);
-  border-color: var(--heart-red);
+  color: var(--rose);
+  border-color: var(--rose);
 }
 
-/* Quick Menu under 3-Line Button */
-.quick-menu {
+/* Red Heart & Dashed Curve Layer */
+.trail-layer {
   position: absolute;
-  top: 56px;
-  right: 18px;
-  background: var(--card-cream);
-  border: 1px solid var(--card-border);
-  border-radius: 12px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
-  display: none;
-  flex-direction: column;
-  z-index: 35;
-  overflow: hidden;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
 }
 
-.quick-menu.open {
-  display: flex;
-}
-
-.quick-menu button {
-  background: transparent;
-  border: none;
-  border-bottom: 1px dashed rgba(197, 155, 95, 0.45);
-  padding: 9px 14px;
-  text-align: left;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
-  color: var(--text-dark);
-  cursor: pointer;
-}
-
-.quick-menu button:last-child {
-  border-bottom: none;
-}
-
-.quick-menu button:hover {
-  background: rgba(197, 155, 95, 0.18);
-}
-
-/* Sine / Cosine Wave Stage */
-.wave-stage {
-  position: relative;
-  width: 100%;
-  height: 70px;
-  padding: 0 24px;
-  margin-top: 14px;
-  flex-shrink: 0;
-}
-
-.wave-svg {
+.trail-svg {
   width: 100%;
   height: 100%;
-  overflow: visible;
 }
 
-.sine-heart {
+.roaming-heart {
   position: absolute;
-  left: 24px;
-  top: 35px;
+  left: 245px;
+  top: 125px;
   transform: translate(-50%, -50%);
-  color: var(--heart-red);
-  font-size: 18px;
+  color: #d61f36;
+  font-size: 16px;
   line-height: 1;
-  text-shadow: 0 2px 8px rgba(217, 30, 54, 0.45);
-  pointer-events: none;
-  z-index: 10;
+  text-shadow: 0 2px 6px rgba(214, 31, 54, 0.35);
+  transition: left 0.65s cubic-bezier(0.22, 1, 0.36, 1), top 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 12;
 }
 
-/* Main Content: All 11 Pages Always Visible + Current Page Details */
-.content-area {
+/* Main Stage */
+.stage {
   flex: 1;
-  padding: 4px 18px 78px;
+  position: relative;
+  z-index: 10;
+  padding: 20px 24px 86px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-}
-
-.all-pages-panel {
-  background: rgba(248, 238, 216, 0.92);
-  border: 1px solid var(--card-border);
-  border-radius: 16px;
-  padding: 12px 14px;
-  box-shadow: 0 8px 20px rgba(74, 59, 50, 0.1);
-}
-
-.panel-header {
+  align-items: center;
+  justify-content: center;
   text-align: center;
+}
+
+.scene-enter {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: sceneFade 0.4s ease;
+}
+
+@keyframes sceneFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.script-heading {
+  font-family: 'Great Vibes', cursive;
+  font-size: 46px;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.05;
+}
+
+.kicker {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9.5px;
+  letter-spacing: 2.6px;
+  text-transform: uppercase;
+  color: var(--ink-soft);
   margin-bottom: 6px;
 }
 
-.panel-header span {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 8.5px;
-  letter-spacing: 2.2px;
-  color: var(--accent-maroon);
+.couple-names {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 8px 0;
+}
+
+.amp {
   display: block;
-}
-
-.panel-header h2 {
-  font-size: 22px;
   font-style: italic;
-  font-weight: 500;
+  font-size: 24px;
+  color: var(--rose);
+  margin: 2px 0;
 }
 
-.all-pages-list {
-  list-style: none;
-  max-height: 215px;
-  overflow-y: auto;
+.meta-line {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10.5px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-top: 8px;
 }
 
-.page-row {
-  display: flex;
-  align-items: center;
-  padding: 5px 8px;
-  border-bottom: 1px dashed rgba(197, 155, 95, 0.4);
-  cursor: pointer;
-  border-radius: 6px;
-  transition: background 0.2s ease;
+.hero-art {
+  width: 100%;
+  max-height: 230px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin-top: 14px;
+  border: 2px solid #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-.page-row:last-child {
-  border-bottom: none;
+/* Calendar Card (Save the Date) */
+.calendar-box {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--border-soft);
+  border-radius: 16px;
+  padding: 14px;
+  width: 100%;
+  max-width: 280px;
+  margin: 12px 0;
 }
 
-.page-row:hover {
-  background: rgba(197, 155, 95, 0.16);
+.cal-month {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  font-weight: 600;
+  color: var(--crimson);
+  margin-bottom: 8px;
 }
 
-.page-row.active {
-  background: rgba(217, 30, 54, 0.1);
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10.5px;
+}
+
+.cal-day-name {
+  color: var(--ink-soft);
+  font-weight: 600;
+  padding-bottom: 4px;
+}
+
+.cal-date {
+  padding: 4px 0;
+  border-radius: 50%;
+}
+
+.cal-date.highlight {
+  background: #d61f36;
+  color: #fff;
   font-weight: 600;
 }
 
-.page-row-num {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 10px;
-  color: var(--accent-gold);
-  width: 24px;
+/* Polaroid Story & Keepsake Cards */
+.polaroid {
+  background: #fff;
+  padding: 8px 8px 18px;
+  border-radius: 6px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.14);
+  width: 195px;
+  margin: 10px auto;
 }
 
-.page-row-title {
-  font-size: 15px;
+.polaroid img {
+  width: 100%;
+  height: 135px;
+  object-fit: cover;
+  display: block;
+}
+
+.polaroid-caption {
   font-style: italic;
-  flex: 1;
+  font-size: 14px;
+  margin-top: 8px;
+  color: var(--ink);
 }
 
-.page-row-heart {
-  color: var(--heart-red);
-  font-size: 11px;
-  opacity: 0;
-  transition: opacity 0.2s ease;
+.quote-text {
+  font-style: italic;
+  font-size: 16px;
+  color: var(--ink-soft);
+  max-width: 280px;
+  margin: 8px auto 12px;
 }
 
-.page-row.active .page-row-heart {
-  opacity: 1;
-}
-
-/* Active Page Details Card */
-.active-detail-card {
-  background: rgba(248, 238, 216, 0.94);
-  border: 1px solid var(--card-border);
+/* Family & Ceremony Cards */
+.info-card {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--border-soft);
   border-radius: 16px;
-  padding: 14px 16px;
-  text-align: center;
-  box-shadow: 0 8px 20px rgba(74, 59, 50, 0.12);
+  padding: 16px;
+  width: 100%;
+  margin-top: 10px;
 }
 
-.detail-sub {
+.family-block {
+  margin-bottom: 12px;
+}
+
+.family-block:last-child {
+  margin-bottom: 0;
+}
+
+.family-role {
   font-family: 'Montserrat', sans-serif;
   font-size: 9px;
   letter-spacing: 2px;
-  color: var(--accent-maroon);
+  color: var(--crimson);
   text-transform: uppercase;
 }
 
-.detail-title {
-  font-size: 25px;
-  font-style: italic;
-  margin: 2px 0 6px;
-}
-
-.detail-body {
-  font-size: 16px;
-  line-height: 1.45;
-}
-
-.photo-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.photo-grid img,
-.single-photo {
-  width: 100%;
-  border-radius: 10px;
-  border: 2px solid #fff;
-  object-fit: cover;
-}
-
-.photo-grid img {
-  height: 95px;
-}
-
-.single-photo {
-  height: 115px;
-  margin-top: 8px;
-}
-
-.form-stack {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-}
-
-.form-input,
-.form-textarea,
-.form-select {
-  width: 100%;
-  padding: 8px 10px;
-  border: 1px solid var(--card-border);
-  border-radius: 8px;
-  background: #fff;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
-  color: var(--text-dark);
-}
-
-.action-btn {
-  margin-top: 8px;
-  padding: 8px 16px;
-  background: var(--accent-gold);
-  color: #fff;
-  border: none;
-  border-radius: 18px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 10.5px;
+.family-names {
+  font-size: 18px;
   font-weight: 600;
-  letter-spacing: 1px;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-}
-
-.status-msg {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 10.5px;
-  color: var(--heart-red);
-  min-height: 14px;
-}
-
-.blessings-feed {
-  margin-top: 8px;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  max-height: 130px;
-  overflow-y: auto;
-}
-
-.blessing-item {
-  background: rgba(255, 255, 255, 0.85);
-  border-left: 3px solid var(--heart-red);
-  padding: 6px 9px;
-  border-radius: 6px;
-  font-size: 14px;
-}
-
-.blessing-author {
-  display: block;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9.5px;
-  color: var(--text-muted);
-}
-
-.continue-btn {
-  position: absolute;
-  bottom: 18px;
-  right: 18px;
-  background: var(--accent-maroon);
-  color: #fff;
-  border: none;
-  border-radius: 28px;
-  padding: 11px 20px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  cursor: pointer;
-  z-index: 25;
-  box-shadow: 0 6px 16px rgba(139, 38, 53, 0.35);
-}
