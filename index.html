@@ -13,24 +13,33 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="phone-frame" aria-label="Interactive Wedding Invitation Preview">
+  <main class="phone-frame" aria-label="Interactive Wedding Invitation">
     <div class="notch"></div>
 
-    <!-- Top Controls: Music Toggle & Chapter Drawer Toggle -->
+    <!-- Top Controls: Music & 3-Line Menu Toggle -->
     <div class="top-controls">
-      <button type="button" class="icon-btn" id="musicToggle" aria-label="Toggle background music" title="Play / Mute Music">
+      <button type="button" class="icon-btn" id="musicToggle" aria-label="Toggle music" title="Play / Mute Music">
         ♪
       </button>
-      <button type="button" class="icon-btn" id="menuToggle" aria-label="Toggle chapter list" title="Toggle Chapters">
-        ✕
+      <button type="button" class="icon-btn" id="menuToggle" aria-label="Open chapters menu" title="Chapters Menu">
+        ☰
       </button>
     </div>
 
-    <!-- Active Chapter View -->
+    <!-- Moving Heart Progress Track across all 11 pages -->
+    <div class="heart-progress-wrap" aria-hidden="true">
+      <div class="heart-track">
+        <div class="heart-fill" id="heartFill"></div>
+        <div class="moving-heart" id="movingHeart">♥</div>
+      </div>
+      <div class="page-counter" id="pageCounter">01 / 11</div>
+    </div>
+
+    <!-- Active Slide View -->
     <section class="slide-container" id="slideContent" aria-live="polite"></section>
 
-    <!-- Chapter Drawer ("Our Journey") -->
-    <aside class="journey-overlay open" id="journeyOverlay" aria-label="Chapters Navigation">
+    <!-- Chapter Drawer ("Our Journey" — Hidden until 3-line menu is clicked) -->
+    <aside class="journey-overlay" id="journeyOverlay" aria-label="Chapters Navigation">
       <div class="journey-card">
         <div class="journey-header">
           <span>THE INVITATION</span>
@@ -40,13 +49,11 @@
       </div>
     </aside>
 
-    <!-- Bottom Navigation Pill -->
-    <button type="button" class="continue-btn" id="continueBtn">CONTINUE &rarr;</button>
+    <!-- Bottom Continue Pill Button -->
+    <button type="button" class="continue-btn" id="continueBtn">CONTINUE →</button>
   </main>
 
-  <!-- Place your audio file at music/theme.mp3 -->
   <audio id="bgMusic" src="music/theme.mp3" loop preload="metadata"></audio>
-
   <script src="app.js"></script>
 </body>
 </html>
