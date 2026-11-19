@@ -36,7 +36,7 @@ body {
   max-width: 390px;
   height: 780px;
   background:
-    linear-gradient(180deg, rgba(248, 238, 216, 0.35) 0%, rgba(232, 223, 213, 0.55) 100%),
+    linear-gradient(180deg, rgba(248, 238, 216, 0.32) 0%, rgba(232, 223, 213, 0.52) 100%),
     url('./photos/couple-bg.jpg') center / cover no-repeat;
   border: 10px solid #222;
   border-radius: 44px;
@@ -46,13 +46,14 @@ body {
   display: flex;
   flex-direction: column;
 }
+
 .notch {
   width: 110px;
   height: 24px;
   background: #111;
   border-radius: 20px;
   margin: 12px auto 0;
-  z-index: 30;
+  z-index: 35;
 }
 
 .top-controls {
@@ -62,24 +63,29 @@ body {
   right: 18px;
   display: flex;
   justify-content: space-between;
-  z-index: 30;
+  z-index: 35;
   pointer-events: none;
 }
 
 .icon-btn {
   pointer-events: auto;
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.94);
   border: 1px solid var(--card-border);
-  font-size: 15px;
+  font-size: 16px;
   color: var(--text-dark);
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.14);
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+
+.icon-btn:hover {
+  transform: scale(1.06);
 }
 
 .icon-btn.playing {
@@ -88,9 +94,72 @@ body {
   border-color: var(--accent-maroon);
 }
 
+/* Moving Heart Progress Track */
+.heart-progress-wrap {
+  padding: 26px 32px 6px;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.heart-track {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.65);
+  border-radius: 99px;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.heart-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-maroon));
+  border-radius: 99px;
+  transition: width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.moving-heart {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--card-cream);
+  border: 1.5px solid var(--accent-maroon);
+  color: var(--accent-maroon);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(139, 38, 53, 0.3);
+  transition: left 0.55s cubic-bezier(0.22, 1, 0.36, 1), transform 0.3s ease;
+}
+
+.moving-heart.pulse {
+  transform: translate(-50%, -50%) scale(1.28);
+}
+
+.page-counter {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--text-dark);
+  background: rgba(248, 238, 216, 0.85);
+  padding: 2px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(230, 213, 184, 0.8);
+}
+
+/* Styled Content Card (Prevents plain look on text-only slides) */
 .slide-container {
   flex: 1;
-  padding: 36px 26px 92px;
+  padding: 12px 22px 86px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -99,27 +168,75 @@ body {
   text-align: center;
 }
 
+.invite-card {
+  width: 100%;
+  background: rgba(248, 238, 216, 0.91);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--card-border);
+  border-radius: 22px;
+  padding: 28px 22px;
+  box-shadow: 0 14px 32px rgba(74, 59, 50, 0.16);
+  position: relative;
+  animation: cardFadeIn 0.4s ease;
+}
+
+.invite-card::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px dashed rgba(197, 155, 95, 0.55);
+  border-radius: 16px;
+  pointer-events: none;
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.ornament {
+  color: var(--accent-gold);
+  font-size: 14px;
+  letter-spacing: 6px;
+  margin-bottom: 6px;
+}
+
 .slide-subtitle {
   font-family: 'Montserrat', sans-serif;
   font-size: 10px;
-  letter-spacing: 3px;
+  font-weight: 600;
+  letter-spacing: 2.8px;
   text-transform: uppercase;
   color: var(--accent-maroon);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .slide-title {
-  font-size: 35px;
+  font-size: 34px;
   font-style: italic;
   font-weight: 600;
-  margin-bottom: 14px;
-  line-height: 1.1;
+  margin-bottom: 12px;
+  line-height: 1.12;
+  color: var(--text-dark);
+}
+
+.divider-line {
+  width: 64px;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+  margin: 0 auto 14px;
 }
 
 .slide-body {
   font-size: 18px;
   line-height: 1.55;
-  max-width: 310px;
+  color: var(--text-dark);
 }
 
 .photo-grid {
@@ -127,7 +244,7 @@ body {
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
   width: 100%;
-  margin-top: 16px;
+  margin-top: 14px;
 }
 
 .photo-grid img,
@@ -140,21 +257,22 @@ body {
 }
 
 .photo-grid img {
-  height: 130px;
+  height: 125px;
 }
 
 .single-photo {
-  height: 165px;
-  margin-top: 14px;
+  height: 150px;
+  margin-top: 12px;
 }
 
 .form-stack {
   width: 100%;
-  max-width: 310px;
   margin-top: 12px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 9px;
+  position: relative;
+  z-index: 2;
 }
 
 .form-input,
@@ -164,7 +282,7 @@ body {
   padding: 10px 12px;
   border: 1px solid var(--card-border);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.94);
   font-family: 'Montserrat', sans-serif;
   font-size: 12px;
   color: var(--text-dark);
@@ -181,6 +299,8 @@ body {
   font-weight: 600;
   letter-spacing: 1px;
   cursor: pointer;
+  position: relative;
+  z-index: 2;
 }
 
 .status-msg {
@@ -192,16 +312,19 @@ body {
 
 .blessings-feed {
   width: 100%;
-  max-width: 310px;
-  margin-top: 14px;
+  margin-top: 12px;
   text-align: left;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  max-height: 220px;
+  overflow-y: auto;
+  position: relative;
+  z-index: 2;
 }
 
 .blessing-item {
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.85);
   border-left: 3px solid var(--accent-gold);
   padding: 8px 10px;
   border-radius: 6px;
@@ -216,17 +339,17 @@ body {
   margin-top: 3px;
 }
 
-/* Chapter Drawer Overlay */
+/* Chapter Drawer Overlay (Closed by default; opens on 3-line click) */
 .journey-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(30, 22, 18, 0.45);
-  backdrop-filter: blur(2px);
+  background: rgba(30, 22, 18, 0.48);
+  backdrop-filter: blur(3px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 58px 20px 76px;
-  z-index: 20;
+  padding: 60px 20px 78px;
+  z-index: 25;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s ease;
@@ -246,6 +369,12 @@ body {
   padding: 18px 16px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
   overflow-y: auto;
+  transform: translateY(10px);
+  transition: transform 0.25s ease;
+}
+
+.journey-overlay.open .journey-card {
+  transform: translateY(0);
 }
 
 .journey-header {
@@ -326,7 +455,7 @@ body {
   font-weight: 600;
   letter-spacing: 1.5px;
   cursor: pointer;
-  z-index: 25;
+  z-index: 30;
   box-shadow: 0 6px 16px rgba(139, 38, 53, 0.35);
 }
 
